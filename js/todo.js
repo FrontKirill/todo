@@ -1,12 +1,12 @@
 const field = document.querySelector('.field');
 let tasksArray = [];
 
-if(localStorage.getItem('tasksArray')){
+if (localStorage.getItem('tasksArray')) {
     tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
 }
 
-tasksArray.forEach(function(task){
-    
+tasksArray.forEach(function (task) {
+
 });
 
 document.querySelector('.add').addEventListener('click', addTask);
@@ -33,9 +33,9 @@ function createTask(value) {
     btnDeleteTask.addEventListener('click', funcDelTask);
 
     task.classList.add('unsuccess');
-    
 
-// Создание массива тасок
+
+    // Создание массива тасок
     const newObjTask = {
         id: Date.now(),
         text: value,
@@ -46,7 +46,7 @@ function createTask(value) {
     saveToLocalStorage();
 
     task.id = newObjTask.id;
-    
+
     return task;
 
 };
@@ -54,16 +54,16 @@ function createTask(value) {
 function funcDelTask(event) {
     const targetDel = event.target;
     const parentElementDel = targetDel.parentElement;
-    if(event.target){
+    if (event.target) {
         parentElementDel.remove()
     }
 
     const id = Number(parentElementDel.id)
 
-    tasksArray = tasksArray.filter(function(task){
+    tasksArray = tasksArray.filter(function (task) {
         if (task.id === id) {
             return false
-        } else{
+        } else {
             return true
         }
     })
@@ -88,8 +88,8 @@ function completeTask(event) {
 
     const idTask = Number(parentElement.id);
 
-    const task = tasksArray.find(function(task){
-        if(task.id === idTask){
+    const task = tasksArray.find(function (task) {
+        if (task.id === idTask) {
             return true
         }
     });
@@ -109,7 +109,7 @@ function addTask() {
 };
 
 
-function saveToLocalStorage(){
+function saveToLocalStorage() {
     localStorage.setItem('tasksArray', JSON.stringify(tasksArray))
 }
 
