@@ -6,8 +6,72 @@ if (localStorage.getItem('tasksArray')) {
 }
 
 tasksArray.forEach(function (item, i, tasksArray) {
-    console.log(item + i + tasksArray);
+    const taskReload = document.createElement('div');
+    taskReload.textContent = item.text;
+
+    const checkTaskReload = document.createElement('input');
+    checkTaskReload.setAttribute('type', 'checkbox');
+    checkTaskReload.classList.add('status');
+    taskReload.append(checkTaskReload);
+    checkTaskReload.addEventListener('click', completeTask);
+
+    const btnDeleteTaskReload = document.createElement('button');
+    btnDeleteTaskReload.textContent = 'Удалить';
+    taskReload.append(btnDeleteTaskReload);
+    btnDeleteTaskReload.addEventListener('click', funcDelTask);
+
+    taskReload.id = item.id;
+
+    if (item.done === true) {
+        taskReload.classList.add('success');
+        checkTaskReload.setAttribute('checked', 'true');
+    } else {
+        taskReload.classList.add('unsuccess');
+    }
+
+    const listAddReload = document.querySelector('.list');
+    listAddReload.appendChild(taskReload);
+    return taskReload;
+
+
 });
+
+document.querySelector('.allTask').addEventListener('click', sortAllTask);
+
+document.querySelector('.endTask').addEventListener('click', sortTaskComplete);
+
+document.querySelector('.completedTask').addEventListener('click', sortTaskEnd);
+
+function sortAllTask() {
+    tasksArray.forEach(function (item, i, tasksArray) {
+        const obj = document.getElementById(item.id);
+        if (item.done === true || item.done === false) {
+            obj.style.display = "block"
+        }
+    });
+};
+
+function sortTaskEnd() {
+    tasksArray.forEach(function (item, i, tasksArray) {
+        const obj = document.getElementById(item.id);
+        if (item.done !== true) {
+            obj.style.display = "none"
+        } else if (obj.style.display = "none") {
+            obj.style.display = "block"
+        }
+    });
+};
+
+function sortTaskComplete() {
+    tasksArray.forEach(function (item, i, tasksArray) {
+        const obj = document.getElementById(item.id);
+        if (item.done === true) {
+            obj.style.display = "none"
+        } else if (obj.style.display = "none") {
+            obj.style.display = "block"
+        }
+    });
+}
 
 
 document.querySelector('.add').addEventListener('click', addTask);
@@ -15,8 +79,7 @@ document.querySelector('.field').addEventListener('keydown', function (e) {
     if (e.keyCode === 13) {
         addTask();
     }
-
-    console.log(tasksArray)
+    // console.log(tasksArray)
 })
 
 
@@ -36,6 +99,7 @@ function createTask(value) {
     btnDeleteTask.addEventListener('click', funcDelTask);
 
     task.classList.add('unsuccess');
+
 
 
     // Создание массива тасок
@@ -108,6 +172,7 @@ function addTask() {
         const listAdd = document.querySelector('.list');
         listAdd.appendChild(newTask);
         field.value = '';
+        console.log(newTask)
     };
 };
 
