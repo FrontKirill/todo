@@ -5,15 +5,18 @@ if (localStorage.getItem('tasksArray')) {
     tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
 }
 
-tasksArray.forEach(function (task) {
-
+tasksArray.forEach(function (item, i, tasksArray) {
+    console.log(item + i + tasksArray);
 });
+
 
 document.querySelector('.add').addEventListener('click', addTask);
 document.querySelector('.field').addEventListener('keydown', function (e) {
     if (e.keyCode === 13) {
         addTask();
     }
+
+    console.log(tasksArray)
 })
 
 
